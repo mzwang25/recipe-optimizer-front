@@ -1,6 +1,6 @@
 var requestOptions = {
     method: 'GET',
-    redirect: 'follow'
+    redirect: 'follow',
   };
 
 const host = "http://localhost:5000"
@@ -55,6 +55,6 @@ export async function ingredientsNeeded() {
 
 export async function sendNeededIngredients() {
    let response = await fetch(host + "/send-needed-ingredients", requestOptions)
-   let data = await response.json()
+   let data = await response.text()
    return data
 }

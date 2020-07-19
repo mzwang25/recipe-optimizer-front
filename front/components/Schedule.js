@@ -14,6 +14,13 @@ export default function Schedule () {
     {
         return(
             <div>
+                <form>
+                    Recipe_Id:<br/>
+                    <input type="text"/><br/>
+                    Notes:<br/>
+                    <input type="text"/><br/>
+                    <input type="submit"/>
+                </form>              
                 <ul>
                     {schedule.map(item => (
                         <li key={item.id}>
@@ -31,7 +38,6 @@ export default function Schedule () {
     } else {
 
         getSchedule().then(function (data) {
-            console.log(data)
             setSchedule(data)
             setHasLoaded(true)
         })

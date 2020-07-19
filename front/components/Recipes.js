@@ -15,6 +15,15 @@ export default function Recipes () {
     {
         return(
             <div>
+                <form>
+                    Name:<br/>
+                    <input type="text"/><br/>
+                    Ingredients:<br/>
+                    <input type="text"/><br/>
+                    Notes:<br/>
+                    <input type="text"/><br/>
+                    <input type="submit"/>
+                </form>
                 <ul>
                     {recipes.map(item => (
                         <li key={item.id}>
