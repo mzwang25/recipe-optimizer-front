@@ -11,15 +11,17 @@ export async function getRecipes() {
    return data
 }
 
-export async function addRecipe() {
-   let response = await fetch(host + "/add-recipe", requestOptions)
-   let data = await response.json()
+export async function addRecipe(name, ingredients, notes) {
+   let params = `?name=${name}&ingredients=${ingredients}&notes=${notes}`
+   let response = await fetch(host + "/add-recipe" + params, requestOptions)
+   let data = await response.text()
    return data
 }
 
-export async function deleteRecipe() {
-   let response = await fetch(host + "/delete-recipe", requestOptions)
-   let data = await response.json()
+export async function deleteRecipe(id) {
+   let params = `?id=${id}`
+   let response = await fetch(host + "/delete-recipe" + params, requestOptions)
+   let data = await response.text()
    return data
 }
 
@@ -29,15 +31,17 @@ export async function getSchedule() {
    return data
 }
 
-export async function addSchedule() {
-   let response = await fetch(host + "/add-schedule", requestOptions)
-   let data = await response.json()
+export async function addSchedule(recipeId, notes) {
+   let params = `?recipe_id=${recipeId}&notes=${notes}`
+   let response = await fetch(host + "/add-schedule" + params, requestOptions)
+   let data = await response.text()
    return data
 }
 
-export async function deleteSchedule() {
-   let response = await fetch(host + "/delete-schedule", requestOptions)
-   let data = await response.json()
+export async function deleteSchedule(id) {
+   let params = `?id=${id}`
+   let response = await fetch(host + "/delete-schedule" + params, requestOptions)
+   let data = await response.text()
    return data
 }
 

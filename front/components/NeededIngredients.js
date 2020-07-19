@@ -14,11 +14,16 @@ export default function NeededIngredients () {
         )
     }
 
+    function handleRegen () {
+        setHasLoaded(false)
+    }
+
     if(hasLoaded) 
     {
         return(
             <div>
-                <button onClick={emailIngredients}> Email Me It!</button>
+                <button onClick={emailIngredients}> Email Me It!</button> <br/>
+                <button onClick={handleRegen}> Regenerate!</button>
                 <ul>
                     {needed.map(item => (
                         <li key={item.name}>
@@ -39,7 +44,7 @@ export default function NeededIngredients () {
 
         return (
                 <div>
-                    Not loaded :(
+                    Loading ...
                 </div>
             )
     }
