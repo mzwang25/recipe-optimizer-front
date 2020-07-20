@@ -3,7 +3,7 @@ var requestOptions = {
     redirect: 'follow',
   };
 
-const host = "http://localhost:5000"
+const host = "http://flask-env.eba-xaseukz9.us-east-2.elasticbeanstalk.com"
 
 export async function getRecipes() {
    let response = await fetch(host + "/get-recipes", requestOptions)
