@@ -1,20 +1,43 @@
-import {getSchedule, addSchedule, deleteSchedule} from "../lib/apis"
+import {getSchedule, addSchedule, deleteSchedule, getRecipes} from "../lib/apis"
 import { useState } from "react"
+import IconButton from '@material-ui/core/IconButton'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import DeleteIcon from '@material-ui/icons/Delete'
+import Button from '@material-ui/core/Button'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import Card from '@material-ui/core/Card'
+import style from './schedule.module.css'
 
 export default function Schedule () {
 
     const [hasLoaded, setHasLoaded] = useState(false)
     const [schedule, setSchedule] = useState([])
+    const [recipes, setRecipes] = useState([])
 
-    const [recipeId, setRecipeId] = useState([])
-    const [notes, setNotes] = useState([])
+    const [recipeName, setRecipeName] = useState("")
+    const [notes, setNotes] = useState("")
 
     function handleSubmit() {
-        addSchedule(recipeId, notes).then((data) => {
+        let id = 0;
+        console.log(recipeName)
+        name = recipeName.name
+        for(var i in recipes) {
+            if(recipes[i].name === name) {
+                id = recipes[i].id
+                break;
+            }
+        }
+
+        if(id <= 0)
+            return;
+
+        addSchedule(id, notes).then((data) => {
             setHasLoaded(false)
         })
 
-        setRecipeId("")
+        setRecipeName("")
         setNotes("")
         event.preventDefault()
     }
@@ -26,32 +49,51 @@ export default function Schedule () {
         })
     }
 
-
     if(hasLoaded) 
     {
         return(
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Recipe_Id
-                        <input type="text" value={recipeId} onChange={(event) => setRecipeId(event.target.value)}/>
-                    </label> <br/>
-                    <label>
-                        Notes
-                        <input value={notes} onChange={(event) => setNotes(event.target.value)} type="text"/>
-                    </label><br/>
-                    <input type="submit"/>
-                </form>              
-                <ul>
+            <div className={style.root}>
+                <Paper style={{width:'100%'}}>
+                    <div className={style.form}>
+                        <form onSubmit={handleSubmit}>
+                            <Autocomplete 
+                                style={{width:'300px'}}
+                                options={recipes}
+                                getOptionLabel={(option) => option.name}
+                                value = {recipeName}
+                                onChange={(event, newValue) => setRecipeName(newValue)}
+                                renderInput={(params) => <TextField {...params}  label="Recipe Name"/>}
+                            />
+                            <br/>
+                            <TextField label="Notes" style={{width:'300px'}} value={notes} onChange={(event) => setNotes(event.target.value)} type="text"/>
+                            <br/>
+                            <br/>
+                            <Button onClick={handleSubmit} variant="contained" color="defualt"> New Schedule</Button>
+                        </form>
+                    </div>
+                </Paper>
+
+                <br/>
+
+                <div className={style.scheduleList}>
                     {schedule.map(item => (
-                        <li key={item.id}>
-                            {item.id} || {item.recipe_id} || {item.notes} <br/>
-                            <button onClick={() => handleDelete(item.id)}>
-                                remove
-                            </button>
-                        </li>
+                        <Card variant="outlined" key={item.id} className={style.scheduleCard}>
+                            <Typography variant="h3" className={style.title}>
+                                Recipe {item.recipe_id}
+                            </Typography>
+
+                            <Typography variant="h5" className={style.body}>
+                                {item.notes}
+                            </Typography>
+
+                            <div className={style.button}>
+                                <IconButton color="secondary" onClick={() => handleDelete(item.id)}>
+                                    <DeleteIcon/>
+                                </IconButton>
+                            </div>
+                        </Card>
                     ))}
-                </ul>
+                </div>
 
 
             </div>
@@ -61,6 +103,10 @@ export default function Schedule () {
         getSchedule().then(function (data) {
             setSchedule(data)
             setHasLoaded(true)
+        })
+        
+        getRecipes().then(function (data) {
+            setRecipes(data)
         })
 
         return (

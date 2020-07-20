@@ -1,6 +1,8 @@
 import {ingredientsNeeded} from "../lib/apis"
 import {sendNeededIngredients} from "../lib/apis"
 import { useState } from "react"
+import Paper from '@material-ui/core/Paper'
+import style from './neededingredients.module.css'
 
 
 export default function NeededIngredients () {
@@ -21,19 +23,21 @@ export default function NeededIngredients () {
     if(hasLoaded) 
     {
         return(
-            <div>
-                <button onClick={emailIngredients}> Email Me It!</button> <br/>
-                <button onClick={handleRegen}> Regenerate!</button>
-                <ul>
-                    {needed.map(item => (
-                        <li key={item.name}>
-                            {item.name}
-                        </li>
-                    ))}
-                </ul>
+                <Paper>
+                    <div className={style.root}>
+                        <button onClick={emailIngredients}> Email Me It!</button> <br/>
+                        <button onClick={handleRegen}> Regenerate!</button>
+                        <ul>
+                            {needed.map(item => (
+                                <li key={item.name}>
+                                    {item.name}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </Paper>
 
 
-            </div>
         )
     } else {
 
