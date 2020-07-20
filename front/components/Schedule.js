@@ -49,6 +49,17 @@ export default function Schedule () {
         })
     }
 
+
+    function rid_to_name(recipe_id){
+        for(var i in recipes) {
+            if(recipes[i].id === recipe_id) {
+                return recipes[i].name
+            }
+        }
+        return ""
+    }
+
+
     if(hasLoaded) 
     {
         return(
@@ -79,7 +90,7 @@ export default function Schedule () {
                     {schedule.map(item => (
                         <Card variant="outlined" key={item.id} className={style.scheduleCard}>
                             <Typography variant="h3" className={style.title}>
-                                Recipe {item.recipe_id}
+                                {rid_to_name(item.recipe_id).toLowerCase()}
                             </Typography>
 
                             <Typography variant="h5" className={style.body}>
@@ -92,9 +103,9 @@ export default function Schedule () {
                                 </IconButton>
                             </div>
                         </Card>
+
                     ))}
                 </div>
-
 
             </div>
         )

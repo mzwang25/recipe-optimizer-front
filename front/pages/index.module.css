@@ -3,7 +3,14 @@
     width: 100%;
     flex-direction: row;
     justify-content: space-evenly;
-    align-items: center;
     background-color: #f5f5f5;
     flex-wrap: wrap;
+}
+
+.schedule {
+    padding-top: 25px;
+}
+
+.ingredients {
+    padding-top: 25px;
 }

@@ -7,16 +7,17 @@ import styles from './index.module.css'
 export default function Home() {
   return (
     <div className={styles.container}>
+
       <Head>
         <title>Recipe Optimizer</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
+      <div className={styles.schedule}>
         <Schedule/>
       </div>
 
-      <div>
+      <div className = {styles.ingredients}>
         <NeededIngredients/>
       </div>
       

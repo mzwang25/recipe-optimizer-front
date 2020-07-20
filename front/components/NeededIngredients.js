@@ -3,6 +3,13 @@ import {sendNeededIngredients} from "../lib/apis"
 import { useState } from "react"
 import Paper from '@material-ui/core/Paper'
 import style from './neededingredients.module.css'
+import IconButton from '@material-ui/core/IconButton'
+import EmailIcon from '@material-ui/icons/Email'
+import RefreshIcon from '@material-ui/icons/Refresh'
+import Typography from '@material-ui/core/Typography'
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu'
+import Link from 'next/link'
+
 
 
 export default function NeededIngredients () {
@@ -25,12 +32,27 @@ export default function NeededIngredients () {
         return(
                 <Paper>
                     <div className={style.root}>
-                        <button onClick={emailIngredients}> Email Me It!</button> <br/>
-                        <button onClick={handleRegen}> Regenerate!</button>
+                        <IconButton onClick={emailIngredients}>
+                            <EmailIcon/>
+                        </IconButton>
+
+                        <Link href="/recipes">
+                            <IconButton >
+                                <RestaurantMenuIcon/>
+                            </IconButton>
+                        </Link>
+
+                        <IconButton onClick={handleRegen}>
+                            <RefreshIcon/>
+                        </IconButton>
+
+
                         <ul>
                             {needed.map(item => (
                                 <li key={item.name}>
-                                    {item.name}
+                                    <Typography varient="h3">
+                                        {item.name.toLowerCase()}
+                                    </Typography>
                                 </li>
                             ))}
                         </ul>
