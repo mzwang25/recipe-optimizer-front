@@ -14,3 +14,9 @@
 .ingredients {
     padding-top: 25px;
 }
+
+@media (min-device-width: 375px) and (max-device-width: 812px) {
+    .container {
+        display: block;
+    }
+}
