@@ -8,7 +8,7 @@ export default function home() {
     return (
         <div>
             <Head>
-            <meta meta name="viewport" content= "width=device-width, user-scalable=no" /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes target-densitydpi=device-dpi" />
 
             </Head>
             <Link href='/'>
