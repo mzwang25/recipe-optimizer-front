@@ -1,0 +1,15 @@
+.root {
+    background-color: #f5f5f5;
+}
+
+.form {
+    width: 50vw;
+    padding-left: 2vw;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    padding-right: 2vw;
+}
+
+.input {
+    width: 75%;
+}

@@ -34,7 +34,7 @@ export default function NeededIngredients () {
     }
 
     function getUnits(item) {
-        if(item.g === 0)
+        if(item.g === 0 && !(item.tbsp === 0))
         {
             return (
                 <>
@@ -48,7 +48,15 @@ export default function NeededIngredients () {
             )
         }
 
-        else 
+        else if(item.g === 0 )
+        {
+            return(
+                <>
+                    <li>{item.p.toFixed(2)} pieces</li>
+                </>
+            )
+        }
+        else
         {
             return (
                 <>

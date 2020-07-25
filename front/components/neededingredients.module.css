@@ -1,5 +1,7 @@
 .root{
     padding-top: 25px;
+    padding-left:1vw;
+    padding-right:1vw;
     padding-bottom: 25px;
     width: 35vw;
 }
