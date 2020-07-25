@@ -68,7 +68,7 @@ export default function Schedule () {
                     <div className={style.form}>
                         <form onSubmit={handleSubmit}>
                             <Autocomplete 
-                                style={{width:'300px'}}
+                                className={style.formInput}
                                 options={recipes}
                                 getOptionLabel={(option) => option.name}
                                 value = {recipeName}
@@ -76,7 +76,7 @@ export default function Schedule () {
                                 renderInput={(params) => <TextField {...params}  label="Recipe Name"/>}
                             />
                             <br/>
-                            <TextField label="Notes" style={{width:'300px'}} value={notes} onChange={(event) => setNotes(event.target.value)} type="text"/>
+                            <TextField className={style.formInput} label="Notes" value={notes} onChange={(event) => setNotes(event.target.value)} type="text"/>
                             <br/>
                             <br/>
                             <Button onClick={handleSubmit} variant="contained" color="defualt"> New Schedule</Button>

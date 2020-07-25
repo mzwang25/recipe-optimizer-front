@@ -9,6 +9,12 @@ import RefreshIcon from '@material-ui/icons/Refresh'
 import Typography from '@material-ui/core/Typography'
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu'
 import Link from 'next/link'
+import React from 'react';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 
 
 
@@ -25,6 +31,32 @@ export default function NeededIngredients () {
 
     function handleRegen () {
         setHasLoaded(false)
+    }
+
+    function getUnits(item) {
+        if(item.g === 0)
+        {
+            return (
+                <>
+                    <li>{item.tbsp.toFixed(4)} tbsp </li>
+                    <li>{item.tsp.toFixed(4)} tsp </li>
+                    <li>{item.cups.toFixed(4)} cups </li>
+                    <li>{item.li.toFixed(4)} li </li>
+                    <li>{item.ml.toFixed(4)} ml </li>
+                    <li>{item.gal.toFixed(4)} gal </li>
+                </>
+            )
+        }
+
+        else 
+        {
+            return (
+                <>
+                    <li>{item.g.toFixed(2)} g </li>
+                    <li>{item.oz.toFixed(2)} oz </li>
+                </>
+            )
+        }
     }
 
     if(hasLoaded) 
@@ -47,25 +79,31 @@ export default function NeededIngredients () {
                         </IconButton>
 
 
-                        <ul>
-                            {needed.map(item => (
-                                <li key={item.name}>
+                        {needed.map(item => (
+
+
+                            <Accordion key={item.name + String(item.cups)}>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
                                     <Typography varient="h3">
                                         {item.name.toLowerCase()}
                                     </Typography>
-                                </li>
-                            ))}
-                        </ul>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <ul>
+                                        {getUnits(item)}
+                                    </ul>
+                                </AccordionDetails>
+                            </Accordion>
+                        ))}
                     </div>
                 </Paper>
-
-
         )
     } else {
 
         ingredientsNeeded().then(function (data) {
             setNeeded(data)
             setHasLoaded(true)
+            console.log(data)
         })
 
         return (
