@@ -12,6 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import styles from "./recipes.module.css"
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 
 export default function Recipes () {
 
@@ -22,8 +24,14 @@ export default function Recipes () {
     const [ingredients, setIngredients] = useState("")
     const [notes, setNotes] = useState("")
 
+    const [successMsg, setSuccessMsg] = useState(false)
+    const [invalidMsg, setInvalidMsg] = useState("")
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
     function handleDelete(id) {
-        console.log("deleteing recipe: " + id)
         deleteRecipe(id).then((data) => {
             setHasLoaded(false)    
         })
@@ -32,18 +40,30 @@ export default function Recipes () {
     function handleSubmit(event) {
         addRecipe(name, ingredients, notes).then((data) => {
             setHasLoaded(false)
+
+            // This is def overdone ... As long as first char is '<' it is bad
+            if(data === "<div> something bad happened. might be with ingredient's formatting </div>") {
+                setInvalidMsg(true)
+            } else {
+                setName("")
+                setIngredients("")
+                setNotes("")
+            }
+            
         })
 
-        setName("")
-        setIngredients("")
-        setNotes("")
         event.preventDefault()
+    }
+
+    function handleCloseMsg() {
+        setSuccessMsg(false)
+        setInvalidMsg(false)
     }
 
     function getIngredients(ing) {
         const arr = ing.split(',')
         const out = arr.map(item => (
-                <li> {item} </li>
+                <li key={item}> {item} </li>
         ))
 
         return (
@@ -59,7 +79,19 @@ export default function Recipes () {
     if(hasLoaded) 
     {
         return(
-            <div classname={styles.root}>
+            <div className={styles.root}>
+                <Snackbar open={successMsg} autoHideDuration={3000} onClose={handleCloseMsg}>
+                    <Alert severity="success">
+                        This is a success message!
+                    </Alert>
+                </Snackbar>
+
+                <Snackbar open={invalidMsg} autoHideDuration={3000} onClose={handleCloseMsg}>
+                    <Alert severity="error">
+                        Check your inputs :(
+                    </Alert>
+                </Snackbar>
+
                 <Paper className={styles.form}>
                     <form onSubmit={handleSubmit}>
                         <TextField className={styles.input} label="Name" variant='standard' value={name} onChange={(event) => setName(event.target.value)}/>
