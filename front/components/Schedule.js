@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import Card from '@material-ui/core/Card'
 import style from './schedule.module.css'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 
 export default function Schedule () {
 
@@ -18,6 +20,9 @@ export default function Schedule () {
 
     const [recipeName, setRecipeName] = useState("")
     const [notes, setNotes] = useState("")
+
+    const [successMsg, setSuccessMsg] = useState(false)
+    const [invalidMsg, setInvalidMsg] = useState(false)
 
     function handleSubmit() {
         let id = 0;
@@ -37,6 +42,7 @@ export default function Schedule () {
             setHasLoaded(false)
         })
 
+        setSuccessMsg(true)
         setRecipeName("")
         setNotes("")
         event.preventDefault()
@@ -59,11 +65,33 @@ export default function Schedule () {
         return ""
     }
 
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+
+    function handleCloseMsg() {
+        setSuccessMsg(false)
+        setInvalidMsg(false)
+    }
+
 
     if(hasLoaded) 
     {
         return(
             <div className={style.root}>
+                <Snackbar open={successMsg} autoHideDuration={3000} onClose={handleCloseMsg}>
+                    <Alert severity="success">
+                        This is a success message!
+                    </Alert>
+                </Snackbar>
+
+                <Snackbar open={invalidMsg} autoHideDuration={3000} onClose={handleCloseMsg}>
+                    <Alert severity="error">
+                        Check your inputs :(
+                    </Alert>
+                </Snackbar>
+
                 <Paper style={{width:'100%'}}>
                     <div className={style.form}>
                         <form onSubmit={handleSubmit}>

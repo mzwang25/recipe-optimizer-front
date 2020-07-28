@@ -25,7 +25,7 @@ export default function Recipes () {
     const [notes, setNotes] = useState("")
 
     const [successMsg, setSuccessMsg] = useState(false)
-    const [invalidMsg, setInvalidMsg] = useState("")
+    const [invalidMsg, setInvalidMsg] = useState(false)
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
