@@ -25,10 +25,13 @@
     padding-top: 25px;
 }
 
-@media (min-device-width: 375px) and (max-device-width: 812px) {
+@media (max-width: 1217px) {
     .container {
-        flex-direction: column;
+        display: block;
         align-items: center;
-        
+    }
+
+    .basic {
+        display: block;
     }
 }

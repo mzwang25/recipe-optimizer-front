@@ -35,11 +35,13 @@
     width:75%;
 }
 
-@media (min-device-width: 375px) and (max-device-width: 812px) {
+@media (max-width: 1217px){
     .root {
         width: 75vw;
+        display: block;
     }
     .formInput{
         width:75%;
     }
 }
+

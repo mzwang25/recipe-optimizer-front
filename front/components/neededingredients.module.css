@@ -6,8 +6,8 @@
     width: 35vw;
 }
 
-@media (min-device-width: 375px) and (max-device-width: 812px) {
+@media (max-width: 1217px) {
     .root {
-        width: 70vw
+        width: 70vw;
     }
 }
