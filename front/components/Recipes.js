@@ -59,11 +59,15 @@ export default function Recipes () {
 
     function checkIngredientInput(event) {
         setIngredients(event.target.value)
-        let regex = /(.+\([0-9.]*(p|tbsp|tsp|cups|li|ml|gal|g|oz)\),\s*)*$/
 
-        console.log(event.target.value.match(regex))
-        const invalidInput = event.target.value.match(regex)[0].length === 0
-        setIsValidInput(!invalidInput)
+        if(event.target.value[event.target.value.length - 1] === ',')
+        {
+            let regex = /(.+\([0-9.]*(p|tbsp|tsp|cups|li|ml|gal|g|oz)\),\s*)*$/
+
+            console.log(event.target.value.match(regex))
+            const invalidInput = event.target.value.match(regex)[0].length === 0
+            setIsValidInput(!invalidInput)
+        }
     }
 
     function handleCloseMsg() {
