@@ -24,6 +24,8 @@ export default function Recipes () {
     const [ingredients, setIngredients] = useState("")
     const [notes, setNotes] = useState("")
 
+    const [isValidInput, setIsValidInput] = useState(true)
+
     const [successMsg, setSuccessMsg] = useState(false)
     const [invalidMsg, setInvalidMsg] = useState(false)
 
@@ -53,6 +55,15 @@ export default function Recipes () {
         })
 
         event.preventDefault()
+    }
+
+    function checkIngredientInput(event) {
+        setIngredients(event.target.value)
+        let regex = /(.+\([0-9]*(p|tbsp|tsp|cups|li|ml|gal|g|oz)\),\s*)*$/
+
+        console.log(event.target.value.match(regex))
+        const invalidInput = event.target.value.match(regex)[0].length === 0
+        setIsValidInput(!invalidInput)
     }
 
     function handleCloseMsg() {
@@ -96,7 +107,7 @@ export default function Recipes () {
                     <form onSubmit={handleSubmit}>
                         <TextField className={styles.input} label="Name" variant='standard' value={name} onChange={(event) => setName(event.target.value)}/>
                         <br/><br/>
-                        <TextField className={styles.input} label="Ingredients ex. Yeast(1p), Water(12li), bread(3tsp)" variant='outlined' multiline rows={5} rowsMax={5} value={ingredients} onChange={(event) => setIngredients(event.target.value)}/>
+                        <TextField className={styles.input} error={!isValidInput} label="Ingredients ex. Yeast(1p), Water(12li), bread(3tsp)," variant='outlined' multiline rows={5} rowsMax={5} value={ingredients} onChange={checkIngredientInput}/>
                         <br/><br/>
                         <TextField className={styles.input} label="Notes" variant='standard' value={notes} onChange={(event) => setNotes(event.target.value)} />
                         <br/><br/>

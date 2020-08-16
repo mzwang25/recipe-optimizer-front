@@ -150,7 +150,25 @@ export default function Schedule () {
 
         return (
                 <div>
-                    Loading ...
+                    <Paper style={{width:'100%'}}>
+                        <div className={style.form}>
+                            <form onSubmit={handleSubmit}>
+                                <Autocomplete 
+                                    className={style.formInput}
+                                    options={recipes}
+                                    getOptionLabel={(option) => option.name}
+                                    value = {recipeName}
+                                    onChange={(event, newValue) => setRecipeName(newValue)}
+                                    renderInput={(params) => <TextField {...params}  label="Recipe Name"/>}
+                                />
+                                <br/>
+                                <TextField className={style.formInput} label="Notes" value={notes} onChange={(event) => setNotes(event.target.value)} type="text"/>
+                                <br/>
+                                <br/>
+                                <Button onClick={handleSubmit} variant="contained" color="defualt"> New Schedule</Button>
+                            </form>
+                        </div>
+                    </Paper>
                 </div>
             )
     }

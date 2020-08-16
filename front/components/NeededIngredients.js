@@ -14,9 +14,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-
-
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function NeededIngredients () {
 
@@ -115,9 +113,25 @@ export default function NeededIngredients () {
         })
 
         return (
-                <div>
-                    Loading ...
-                </div>
+                <Paper>
+                    <div className={style.root}>
+                        <IconButton onClick={emailIngredients}>
+                            <EmailIcon/>
+                        </IconButton>
+
+                        <Link href="/recipes">
+                            <IconButton >
+                                <RestaurantMenuIcon/>
+                            </IconButton>
+                        </Link>
+
+                        <IconButton onClick={handleRegen}>
+                            <RefreshIcon/>
+                        </IconButton>
+
+                        <CircularProgress style={{display: 'block'}}/>
+                    </div>
+                </Paper>
             )
     }
 
